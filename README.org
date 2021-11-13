@@ -1,9 +1,5 @@
-#+TITLE: fortran layer
-# Document tags are separated with "|" char
-# The example below contains 2 tags: "layer" and "web service"
-# Avaliable tags are listed in <spacemacs_root>/.ci/spacedoc-cfg.edn
-# under ":spacetools.spacedoc.config/valid-tags" section.
-#+TAGS: layer|web service
+#+TITLE: Fortran layer
+#+TAGS: layer|programming|dsl
 
 # The maximum height of the logo should be 200 pixels.
 [[img/fortran.png]]
@@ -11,32 +7,47 @@
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
-  - [[#features][Features:]]
+  - [[#features][Features]]
 - [[#install][Install]]
+  - [[#layer][Layer]]
+  - [[#dependencies][Dependencies]]
+    - [[#code-formatting][Code formatting]]
+    - [[#lint][Lint]]
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for something.
+This layer adds support for fortran programming language.
 
-** Features:
-  - Autocomplete
-  - Lint
-  - Refactor
-  - ...
+** Features
+  - Code formatting using [[https://github.com/pseewald/fprettify][fprettify]]
+  - Lint using [[https://www.flycheck.org/en/latest/][flycheck]]
+  - Syntax highlithing with [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran.html][f90-mode]]
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+** Layer
+To use this configuration layer, you should clone and then symlink it into your
+spacemacs private folder:
+
+#+begin_src sh
+  ln -s /path/where/you/cloned/the/repo ~/.emacs.d/private/fortran
+#+end_src
+
+Now, you can add it to your =~/.spacemacs=. You will need to
 add =fortran= to the existing =dotspacemacs-configuration-layers= list in this
 file.
+** Dependencies
+*** Code formatting
+=fprettify= must be available in the path, install it using:
+
+#+begin_src sh
+  pip install fprettify
+#+end_src
+
+*** Lint
+=gfortran= must be available in the path, install it using your package manager.
 
 * Key bindings
 
 | Key Binding | Description    |
 |-------------+----------------|
-| ~SPC x x x~ | Does thing01   |
-
-# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
-# Examples:
-# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
-# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
-# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.
+| ~SPC m =~   | Format buffer  |

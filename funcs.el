@@ -1,4 +1,4 @@
-;;; packages.el --- fortran layer packages file for Spacemacs.
+;;; funcs.el --- fortran layer functions file for Spacemacs.
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -15,21 +15,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defconst fortran-packages
-  '(
-    flycheck
-    (f90 :location built-in)
-    ))
 
-(defun fortran/init-f90 ()
-  (use-package f90
-    :ensure nil
-    :mode (("\\.f90\\'" . f90-mode))
-    :config
-    (setq f90-auto-keyword-case #'downcase-word)
-    ))
-
-(defun fortran/post-init-flycheck ()
-  (progn
-    (spacemacs/enable-flycheck 'f90-mode)
-    (setq flycheck-gfortran-language-standard "f2018")))
+(defun spacemacs/fortran-format-buffer ()
+  "Format current fortran buffer."
+  (interactive)
+  (if (executable-find "fprettify")
+      (progn
+        (shell-command (format "fprettify --silent %s"
+                              (shell-quote-argument (buffer-file-name)))))
+    (message "Error: Cannot find fprettify executable.")))
