@@ -32,4 +32,5 @@
 (defun fortran/post-init-flycheck ()
   (progn
     (spacemacs/enable-flycheck 'f90-mode)
-    (setq flycheck-gfortran-language-standard "f2018")))
+    (setq flycheck-gfortran-language-standard "f2018")
+    (setq flycheck-gfortran-args "-fcoarray=single")))
