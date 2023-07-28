@@ -16,4 +16,4 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (spacemacs/set-leader-keys-for-major-mode 'f90-mode
-  "=" 'spacemacs/fortran-format-buffer)
+  "=" 'spacemacs//fortran-format-buffer)

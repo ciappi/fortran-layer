@@ -1,4 +1,4 @@
-;;; packages.el --- fortran layer packages file for Spacemacs.
+;;; config.el --- fortran layer functions file for Spacemacs.
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -15,24 +15,11 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defconst fortran-packages
-  '(
-    flycheck
-    (f90 :location built-in)
-    ))
 
-(defun fortran/init-f90 ()
-  (use-package f90
-    :ensure nil
-    :mode (("\\.f90\\'" . f90-mode))
-    :init
-    (add-hook 'f90-mode-hook #'spacemacs//fortran-setup-backend)
-    :config
-    (setq f90-auto-keyword-case #'downcase-word)
-    ))
+;; variables
 
-(defun fortran/post-init-flycheck ()
-  (progn
-    (spacemacs/enable-flycheck 'f90-mode)))
-;;    (setq flycheck-gfortran-language-standard "f2018")
-;;    (setq flycheck-gfortran-args "-fcoarray=single")))
+(spacemacs|define-jump-handlers f90-mode)
+
+;; disabled by default
+(defvar fortran-backend (when (configuration-layer/layer-used-p 'lsp) 'lsp)
+  "Set to 'lsp to enable use of fortls")

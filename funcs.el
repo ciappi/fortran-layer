@@ -16,7 +16,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs/fortran-format-buffer ()
+(defun spacemacs//fortran-format-buffer ()
   "Format current fortran buffer."
   (interactive)
   (if (executable-find "fprettify")
@@ -24,3 +24,18 @@
         (shell-command (format "fprettify --silent %s"
                               (shell-quote-argument (buffer-file-name)))))
     (message "Error: Cannot find fprettify executable.")))
+
+
+(defun spacemacs//fortran-setup-backend ()
+  "Conditionally setup fortran backend."
+  (when (eq fortran-backend 'lsp)
+    (spacemacs//fortran-setup-lsp)))
+
+
+;; lsp
+
+(defun spacemacs//fortran-setup-lsp ()
+  "Start lsp-mode and configure for the buffer."
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp-deferred)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
